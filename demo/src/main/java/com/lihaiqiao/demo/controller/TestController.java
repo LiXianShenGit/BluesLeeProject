@@ -12,6 +12,6 @@ public class TestController {
 
     @RequestMapping("/getStr")
     public String getStr() {
-        return "lihaiqiao(●'◡'●)";
+        return "lihaiqiao(●'◡'●)zhangsan";
     }
 }
