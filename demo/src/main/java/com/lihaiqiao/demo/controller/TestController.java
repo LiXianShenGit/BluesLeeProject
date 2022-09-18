@@ -12,6 +12,7 @@ public class TestController {
 
     @RequestMapping("/getStr")
     public String getStr() {
+        System.out.printf("zhangshan");
         return "lihaiqiao(●'◡'●)";
     }
 }
