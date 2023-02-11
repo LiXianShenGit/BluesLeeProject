@@ -1,0 +1,57 @@
+package ${package}.${moduleName}.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import ${mainPath}.common.utils.PageUtils;
+import ${package}.${moduleName}.entity.${className}Entity;
+
+import java.util.Map;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@HessianUserClient("${classname}Service")
+public interface ${className}Service {
+
+    /**
+    * 分页查询
+    * @param DO
+    * @return
+    */
+    Pagination findPage(${className}VO ${classname}VO);
+
+
+    /**
+    * 插入数据
+    * @param ${classname}DO
+    * @return
+    */
+    ServiceResult insert(${className}DO ${classname}DO);
+
+
+    /**
+    * 通过id查询数据
+    * @param id
+    * @return
+    */
+    ServiceResult find${className}ById(BigInteger id);
+
+
+    /**
+    * 更新数据
+    * @param ${classname}DO
+    * @return
+    */
+    ServiceResult update${className}(${className}DO ${classname}DO);
+
+
+    /**
+    * 批量删除
+    * @param ids
+    */
+    ServiceResult del${className}ById(BigInteger[] ids);
+}
+

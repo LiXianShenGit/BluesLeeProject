@@ -1,0 +1,179 @@
+package ${package}import io.renren.utils.ControllerResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Arrays;
+import java.util.Objects;
+
+import static java.util.Objects.isNull;
+
+
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@Controller
+@RequestMapping("/admin/${moduleName}/${pathName}")
+@Slf4j
+public class ${className}Controller extends BaseController{
+
+    /**
+    * 列表视图
+    */
+    public static final String LIST_VIEW = "/business/pointToBuy/agentSubsidy/list";
+    private static final String VIEW_LIST_DATA = "/business/pointToBuy/agentSubsidy/listData";
+    /**
+     * 添加页面展示
+     */
+    public static final String ADD_VIEW = "/business/pointToBuy/commissionRule/add";
+    /**
+     * 修改规则展示
+     */
+    public static final String EDIT_VIEW = "/business/pointToBuy/commissionRule/edit";
+    /**
+    * 查看规则详情
+    */
+    public static final String DETAIL_VIEW = "/business/pointToBuy/commissionRule/detail";
+
+
+
+    @Autowired
+    private ${className}Service ${classname}Service;
+
+
+    /**
+    *
+    * @param model
+    * @return String
+    */
+    @RequestMapping(value = "/list")
+    public String list(final Model model) {
+        return LIST_VIEW;
+    }
+
+
+    /**
+     * 列表
+     */
+    @GetMapping("/list/listData")
+    public String listData(${className}VO ${classname}, Model model) {
+        PageUtils page = ${classname}Service.findPage(${classname});
+        this.buildPagination(model, page);
+
+        return VIEW_LIST_DATA;
+    }
+
+
+    /**
+     * 信息
+     */
+    @RequestMapping("/detail/view/{id}")
+    public String info(@PathVariable("id") BigInteger id, final Model model) {
+            ${className}Entity ${classname} = ${classname}Service.getById(${pk.attrname});
+        if (Objects.isNull(id)) {
+            log.error("id为空");
+            return BaseController.ERROR_VIEW;
+        }
+        ServiceResult data = ${classname}Service.find${className}ById(id);
+        if (!ruleById.isSuccess()) {
+            log.error("通过id查询详情失败");
+            return BaseController.ERROR_VIEW;
+        }
+        model.addAttribute("data", data.getData());
+
+        return DETAIL_VIEW;
+    }
+
+
+    /**
+    * 添加页面展示
+    *
+    *
+    * @param
+    * @return
+    */
+    @RequestMapping("/add/view")
+    public String addView(Model model) {
+        return ADD_VIEW;
+    }
+
+    /**
+     * 保存
+     */
+    @RequestMapping("/add")
+    @ResponseBody
+    public ControllerResult save(${className}DO ${classname}) {
+        if (Objects.isNull(${classname})) {
+            return ControllerResult.error("添加的主体为空");
+        }
+        Principal principal = ShiroUtils.getCurrent();
+
+        ServiceResult serviceResult = ${classname}Service.insert(${classname});
+        if (!serviceResult.isSuccess()) {
+            return ControllerResult.error(serviceResult.getMessage());
+        }
+        return ControllerResult.success("添加成功");
+    }
+
+
+    /**
+   *
+   * 修改页面
+   * @param id
+   * @param model
+   * @return
+   */
+    @RequestMapping("/edit/view/{id}")
+    public String editView(@PathVariable("id") BigInteger id, Model model) {
+        if (Objects.isNull(id)) {
+            log.error("id不能为空");
+            return BaseController.ERROR_VIEW;
+        }
+        ServiceResult data = ${classname}Service.find${className}ById(id);
+        if (!ruleById.isSuccess()) {
+            log.error("通过id查询详情失败");
+            return BaseController.ERROR_VIEW;
+        }
+        model.addAttribute("data", data.getData());
+
+        return EDIT_VIEW;
+    }
+
+    /**
+    * 修改
+    *
+    *
+    * @param ${classname}
+    * @return
+    */
+    @RequestMapping("/edit")
+    @ResponseBody
+    public ControllerResult editRule(${className}DO ${classname}) {
+        if (Objects.isNull(${classname})) {
+            return ControllerResult.error("修改的主体为空");
+        }
+        ServiceResult serviceResult = ${classname}Service.updateById(${classname});
+        if (!serviceResult.isSuccess()) {
+            return ControllerResult.error(serviceResult.getMessage());
+        }
+        return ControllerResult.success("修改成功");
+    }
+
+
+    /**
+     * 删除
+     */
+    @RequestMapping("/delete")
+    public ControllerResult delete(${pk.attrType}[] ${pk.attrname}s) {
+            ${classname}Service.removeByIds(Arrays.asList(${pk.attrname}s));
+
+        return ControllerResult.success();
+    }
+
+}

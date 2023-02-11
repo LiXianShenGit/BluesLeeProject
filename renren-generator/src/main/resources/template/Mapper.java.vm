@@ -1,0 +1,57 @@
+package ${package}.${moduleName}.dao;
+
+import ${package}.${moduleName}.entity.${className}Entity;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.math.BigInteger;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@Repository
+public interface ${className}Mapper {
+
+
+    /**
+    * 分页查询
+    * @param DO
+    * @return
+    */
+    List<${className}VO> findPage(${className}VO ${classname}VO);
+
+
+    /**
+    * 插入数据
+    * @param DO
+    * @return
+    */
+    int insert(${className}DO ${classname}DO);
+
+
+    /**
+    * 通过id查询数据
+    * @param id
+    * @return
+    */
+     ${className}DO find${className}ById(BigInteger id);
+
+
+    /**
+    * 更新数据
+    * @param DO
+    * @return
+    */
+    int update${className}(${className}DO ${classname}DO);
+
+
+    /**
+    * 批量删除
+    * @param ids
+    */
+    void del${className}ById(BigInteger[] ids);
+}

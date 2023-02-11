@@ -1,0 +1,91 @@
+package ${package}.${moduleName}.service.impl;
+
+import io.renren.utils.ServiceResult;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+import java.util.Objects;
+
+
+import ${package}.${moduleName}.dao.${className}Dao;
+import ${package}.${moduleName}.entity.${className}Entity;
+
+import static java.util.Objects.isNull; ${package}.${moduleName}.service.${className}Service;
+
+
+@HessianService("${classname}Service")
+@Slf4j
+public class ${className}ServiceImpl extends BaseCacheService implements ${className}Service {
+
+    @Resource
+    private ${className}Mapper ${classname}Mapper;
+
+
+    @Override
+    public Pagination findPage(${className}VO ${classname}VO) {
+        if (isNull(${className}VO)) {
+            return null;
+        }
+            ${classname}Mapper.findPage(${classname}VO);
+
+        return ${classname}VO;
+    }
+
+
+    /**
+     * 插入数据
+     * @param DO
+     * @return
+     */
+    @Override
+    public ServiceResult insert(${className}DO ${classname}DO) {
+        if (isNull(${classname}DO)) {
+            return ServiceResult.error("主体不能为空");
+        }
+        int i = ${classname}Mapper.insert(${classname}DO);
+        return i > 0 ? ServiceResult.success("添加成功") : ServiceResult.error("添加失败");
+    }
+
+
+    /**
+    * 通过id查询数据
+    * @param id
+    * @return
+    */
+    @Override
+    public ServiceResult find${className}ById(BigInteger id) {
+        if (isNull(id)) {
+            return ServiceResult.error("id不能为空");
+        }
+            ${className}DO ${classname}DO=${classname}Mapper.find${className}ById(id);
+        return ServiceResult.success(${classname}DO);
+    }
+
+
+    /**
+    * 更新数据
+    * @param DO
+    * @return
+    */
+    @Override
+    public ServiceResult update${className}(${className}DO ${classname}DO) {
+        if (isNull(${classname}DO)) {
+            return ServiceResult.error("主体不能为空");
+        }
+        int i = ${classname}Mapper.update${className}(${classname}DO);
+        return i > 0 ? ServiceResult.success("修改成功") : ServiceResult.error("修改失败");
+    }
+
+
+
+    /**
+    * 批量删除
+    * @param ids
+    */
+    @Override
+    public ServiceResult del${className}ById(BigInteger[] ids) {
+            ${classname}Mapper.del${className}ById(ids);
+        return ServiceResult.success("删除成功");
+    }
+
+}
